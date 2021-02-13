@@ -145,4 +145,4 @@ MEDIA_URL = '/media/'
 
 
 # login_url 
-LOGIN_URL = '/'
+LOGIN_URL = '/account/login'
