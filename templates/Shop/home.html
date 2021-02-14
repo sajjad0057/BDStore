@@ -1,0 +1,10 @@
+{% extends "Base.html" %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block body_block %}
+  {% for product in product_list %}
+  {{product.name}}
+    
+  {% endfor %}
+{% endblock body_block %}
