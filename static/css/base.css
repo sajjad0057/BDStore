@@ -1,0 +1,36 @@
+.product{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product_name a{
+    color: rgb(126, 126, 126);
+    transition: 0.3s;
+}
+.product_name a:hover{
+    text-decoration: none;
+    color: rgb(126, 126, 126);
+    font-weight: bolder;
+    
+
+    
+}
+
+.cart_button{
+    background-color:rgb(131, 129, 129);
+    height: 35px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 5px;
+    transition: 0.3s; 
+
+}
+
+.cart_button:hover{
+    background:rgb(196, 190, 190);
+    text-decoration: none;
+    color: rgb(39, 41, 41);
+}

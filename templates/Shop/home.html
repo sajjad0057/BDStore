@@ -1,10 +1,37 @@
-{% extends "Base.html" %}
-{% block title %}
-  Home
-{% endblock title %}
+{% extends "Base.html" %} {% block title_block %} BDStore | Home 
+{% endblock title_block %}
 {% block body_block %}
-  {% for product in product_list %}
-  {{product.name}}
-    
-  {% endfor %}
+<div class="bg-light rounded" style="min-height: 100vh;">
+  <h3 class="text-muted  p-5">Featured Products :</h3>
+  <hr />
+  <div class="product">
+    {% for product in product_list %}
+    <div class="col-sm-12 col-md-4 col-lg-3 p-2">
+      <div class="card">
+        <img
+          class="card-img-top"
+          src="/media/{{product.main_image}}"
+          height="200px"
+          width="100%"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <div>
+            <h5 class="product_name"><a href="#">{{product.name}}</a></h5>
+            <i>&#2547; {{product.price}}</i>
+            {% if product.old_price > 0 %}
+            &nbsp;
+            <strike><i>&#2547; {{product.old_price}}</i></strike>   
+            {% endif %}
+          </div>
+          <p class="card-text">
+            {{product.preview_text}}
+          </p>
+        </div>
+        <a  class="cart_button" href="#">add to cart</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock body_block %}
