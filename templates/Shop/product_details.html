@@ -1,0 +1,52 @@
+{% extends "Base.html" %}
+{% block title_block %}
+{{object.name}} Details
+{% endblock title_block %}
+{% block style_block %}
+  <style>
+      .detail_head{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+  </style>
+{% endblock style_block %}
+{% block body_block %}
+  <div class="container bg-light rounded p-2">
+      <div class="bg-white">
+        <center><h3>{{object.name}}</h3></center>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-4 bg-white rounded p-1 m-3 image">
+            <a href="#">
+                <img src="/media/{{object.main_image}}" alt="Image" style="width: 100%;">
+            </a>
+        </div>
+        <div class="col-sm-12 col-md-7 bg-white p-3 rounded detail m-3">
+            <div class="detail_head">
+                <div>
+                    <h5><i>{{object.preview_text|linebreaks}}</i></h5>
+                </div>
+                <div>
+                    <i>&#2547; <span>{{object.price}}</span></i>
+                </div>
+            </div>
+
+            <hr>
+            <i><h4>Details : </h4></i>
+            <p>
+                {{object.detail_text|linebreaks}}
+            </p>
+            <div class="detail_head">
+                <a href="{% url 'Shop:home' %}"><button class="btn btn-info">Back</button> </a>
+                <a href="#"><button class="btn btn-success">Add To Cart</button> </a>
+            </div>
+
+        </div>
+
+      </div>
+
+  </div>
+{% endblock body_block %}

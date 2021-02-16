@@ -6,6 +6,7 @@ Create New Account
 {% endblock title_block %}
 
 {% block body_block %}
+<div class="container bg-light">
   <h2>Login:</h2>
   <hr>
   <form method="POST">
@@ -15,6 +16,7 @@ Create New Account
   </form>
   <br>
   <p>Does't have an account ? <a href="{% url 'Login:signup' %}">Sign up</a></p>
+</div>
 
 
 {% endblock body_block %}
