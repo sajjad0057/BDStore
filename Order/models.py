@@ -33,6 +33,11 @@ class Order(models.Model):
     paymentId = models.CharField(max_length=264,blank=True,null=True)
     orederId = models.CharField(max_length=264,blank=True,null=True)
     
+    def __str__(self):
+        return f'{self.user} \'s order'
+    
+    
+    
     def get_total_items(self):
         total = 0
         for order_item in self.orders_item.all():

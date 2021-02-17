@@ -37,7 +37,7 @@
             {{product.preview_text}}
           </p>
         </div>
-        <a  class="cart_button" href="#">add to cart</a>
+        <a  class="cart_button" href="{% url 'Order:add' product.pk %}">add to cart</a>
       </div>
     </div>
     {% endfor %}

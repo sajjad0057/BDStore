@@ -41,7 +41,7 @@
             </p>
             <div class="detail_head">
                 <a href="{% url 'Shop:home' %}"><button class="btn btn-info">Back</button> </a>
-                <a href="#"><button class="btn btn-success">Add To Cart</button> </a>
+                <a href="{% url 'Order:add' object.pk %}"><button class="btn btn-success">Add To Cart</button> </a>
             </div>
 
         </div>
