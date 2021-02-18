@@ -38,7 +38,7 @@
                       </td>
                       <td align="left">&#2547;  {{cart.get_total}} </td>
                       <td>
-                          <a href="#">                              
+                          <a href="{% url 'Order:remove' cart.item.pk %}">                           
                                   <i class="fa fa-times-circle" aria-hidden="true" style="color: rgb(165, 165, 165);"></i>                              
                           </a>
                       </td>

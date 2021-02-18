@@ -46,12 +46,37 @@ def add_to_cart(request,pk):
 def cart_view(request):
     carts = Cart.objects.filter(user = request.user,purchased=False)
     print('carts ====>',carts)
+    print('carts ++++++>',carts.first())  # if carts is empty, carts.first() return None. otherwise first value of carts objects
     orders = Order.objects.filter(user=request.user,ordered=False)
-    print('orders ====>',orders)
+    #print('orders ====>',orders)
     
     if carts.exists() and orders.exists():
         order = orders[0]
         return render(request,'Order/cart.html',{'carts':carts,'order':order})
-    else:
+    elif carts.first() is None:
+        messages.warning(request,"You don\'t have any item in your cart !")
+        return redirect('Shop:home')
+    else: 
         messages.warning(request,"You don\'t have any item in your cart !")
         return redirect(request.META.get('HTTP_REFERER'))
+    
+    
+@login_required
+def remove_from_cart(request,pk):
+    item = Product.objects.get(pk=pk)
+    order_qs = Order.objects.filter(user=request.user,ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.orders_item.filter(item=item).exists():
+            orderItem = Cart.objects.filter(item=item,user=request.user,purchased=False)[0]
+            print("orderItem ---->",orderItem)
+            messages.success(request,f'{orderItem} is removed form your cart !')
+            order.orders_item.remove(orderItem)
+            orderItem.delete()
+            return redirect('Order:cart')
+        else:
+            messages.info(request,"This item don\'t exists in your order")
+            return redirect("Shop:home")
+    else:
+        messages.info(request,"You Don\'t have and active order")
+        return redirect("Shop:home")
