@@ -38,4 +38,20 @@ def add_to_cart(request,pk):
         messages.info(request,"This Item is Added To cart")
         #return redirect('Shop:home')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # Redirect to previous page .
-         
+    
+    
+
+
+@login_required
+def cart_view(request):
+    carts = Cart.objects.filter(user = request.user,purchased=False)
+    print('carts ====>',carts)
+    orders = Order.objects.filter(user=request.user,ordered=False)
+    print('orders ====>',orders)
+    
+    if carts.exists() and orders.exists():
+        order = orders[0]
+        return render(request,'Order/cart.html',{'carts':carts,'order':order})
+    else:
+        messages.warning(request,"You don\'t have any item in your cart !")
+        return redirect(request.META.get('HTTP_REFERER'))
