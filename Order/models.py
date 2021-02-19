@@ -18,7 +18,7 @@ class Cart(models.Model):
         return f'{self.quantity} X {self.item}'
     
     
-    def get_total(self):
+    def get_total(self):    # User define 
         total = self.item.price * self.quantity
         float_total = format(total,'0.2f')
         return float_total
@@ -34,15 +34,17 @@ class Order(models.Model):
     orederId = models.CharField(max_length=264,blank=True,null=True)
     
     def __str__(self):
-        return f'{self.user} \'s order'
+        return f'{self.user} \'s  order'
     
     
     
-    def get_total_items(self):
+    def get_total_items(self):  #User define
+        #print("self.orders_item.all()--->",self.orders_item.all())
         total = 0
         for order_item in self.orders_item.all():
-            total = float(order_item.get_total())
-            return total
+            #print("order_item.get_total() ---",order_item.get_total())
+            total += float(order_item.get_total())
+        return total
         
     
         

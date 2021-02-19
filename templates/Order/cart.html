@@ -23,13 +23,13 @@
                       <th scope="row">{{forloop.counter}}</th>
                       <td>{{cart.item.name}}</td>
                       <td>
-                        <a href="" class="mr-2">
+                        <a href="{% url 'Order:decrease' cart.item.pk %}" class="mr-2">
                             <span class="badge badge-danger">
                                 <i class="fa fa-minus-circle" aria-hidden="true"></i>
                             </span>
                         </a>
                         <span>{{cart.quantity}}</span>
-                        <a href="" class="ml-2">
+                        <a href="{% url 'Order:increase' cart.item.pk %}" class="ml-2">
                             <span class="badge badge-info">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                             </span>
