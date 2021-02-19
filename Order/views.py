@@ -10,6 +10,7 @@ from Shop.models import Product
 @login_required
 def add_to_cart(request,pk):
     item = Product.objects.get(pk=pk)
+    #print("item ----+++--- >",item)
     order_item = Cart.objects.get_or_create(item = item,user=request.user,purchased=False)
     order_qs = Order.objects.filter(user = request.user,ordered=False)
     #print("order_qs------> ",order_qs)

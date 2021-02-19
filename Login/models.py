@@ -89,6 +89,7 @@ class Profile(models.Model):
             if value is None or value == "":
                 return False
             return True
+
         
     
 @receiver(post_save,sender=User)
