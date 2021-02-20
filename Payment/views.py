@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.urls import reverse
-from Order.models import Order
+from Order.models import Order,Cart
 from .models import BillingAddress
 from .forms import BillingForm
 from django.contrib.auth.decorators import login_required
@@ -10,7 +10,7 @@ from django.contrib import messages
 import requests
 from sslcommerz_python.payment import SSLCSession
 from decimal import Decimal
-
+from django.views.decorators.csrf import csrf_exempt # for disable csrf verification in SSL API post request
 # Create your views here.
 
 
@@ -93,9 +93,65 @@ def payment(request):
 
 
 
-@login_required
+@csrf_exempt
 def complete(request):
-    return render(request,"Payment/complete.html",)
+    if request.method == 'POST' or request.method == 'post':
+        payment_data = request.POST
+        #print(payment_data)
+        status = payment_data['status']
+
+        if status == 'VALID':
+            val_id = payment_data['val_id']
+            tran_id = payment_data['tran_id']
+            messages.success(request,' your payment has been completed successfully !')
+            return HttpResponseRedirect(reverse('Payment:purchase',kwargs={
+                'val_id':val_id,'tran_id':tran_id
+            }))
+        elif status == 'FAILED':
+            messages.warning(request,' Oops ! Your payment had been failed ! Please try again. this page is redirect autometically, please wait 5 sec.')
+        
+    return render(request,'Payment/complete.html',context={})
+
+
+def purchase(request,val_id,tran_id):
+    '''Here if we use get() query_set,we don't have need to use indexing for access object value,
+    otherwise we need  indexing  to access objects value  '''
+    order_q = Order.objects.filter(user=request.user,ordered=False)
+    #print('order_q---->',order_q)
+    #print('order_q[0]---->',order_q[0])
+    order_qs = Order.objects.get(user=request.user,ordered=False)
+    #print('order_qs---->',order_qs)
+    order_qs.ordered=True
+    order_qs.paymentId=val_id
+    order_qs.orderId=tran_id
+    order_qs.save()
+    cart_item = Cart.objects.filter(user=request.user,purchased=False)
+    #print('cart_item----->',cart_item)
+    for item in cart_item:
+        #print('item---->',item)
+        item.purchased=True
+        item.save()
+    return HttpResponseRedirect(reverse('Shop:home'))
+
+
+
+@login_required
+def user_orders(request):
+    try:
+        orders = Order.objects.filter(user=request.user,ordered=True)
+        print(orders)
+        dict = {'orders':orders}
+        if orders.exists():
+            return render(request,'Payment/order.html',context=dict)
+        else:
+            messages.warning(request,"Yon don't have any active order now ! ")
+            return redirect('Shop:home')
+            
+    except:
+        messages.warning(request,"Error Some Thing ! ")
+        return redirect('Shop:home')
+        
+    
         
     
 

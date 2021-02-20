@@ -6,16 +6,18 @@ Create New Account
 {% endblock title_block %}
 
 {% block body_block %}
-<div class="container bg-light">
-  <h2>Create New Account:</h2>
-  <hr>
-  <form method="POST">
-      {{form|crispy}}
-      {% csrf_token %}
-      <button type="submit" class="btn btn-success">Create Account</button>
-  </form>
-  <br>
-  <p>Already have an account ? <a href="{% url 'Login:login' %}">login here</a></p>
+<div class="container bg-light card">
+  <div class="card-body">
+    <h2>Create New Account:</h2>
+    <hr>
+    <form method="POST">
+        {{form|crispy}}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Create Account</button>
+    </form>
+    <br>
+    <p>Already have an account ? <a href="{% url 'Login:login' %}">login here</a></p>
+  </div>
 </div>
 
 {% endblock body_block %}

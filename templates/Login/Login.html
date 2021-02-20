@@ -6,16 +6,18 @@ Create New Account
 {% endblock title_block %}
 
 {% block body_block %}
-<div class="container bg-light">
+<div class="container bg-light card">
+<div class="card-body">
   <h2>Login:</h2>
   <hr>
   <form method="POST">
       {{form|crispy}}
       {% csrf_token %}
-      <button type="submit" class="btn btn-success">Login</button>
+      <button type="submit" class="btn btn-success" >Login</button>
   </form>
   <br>
   <p>Does't have an account ? <a href="{% url 'Login:signup' %}">Sign up</a></p>
+</div>
 </div>
 
 

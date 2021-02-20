@@ -1,0 +1,46 @@
+{% extends 'Base.html' %}
+{% block title_block %}
+  BenarosHi | Orders
+{% endblock title_block %}
+{% block body_block %}
+<div class="shadow-none p-3 mb-5 bg-light rounded container  mt-5 card">
+    <h2 class="text-center"><strong>Your Orders</strong></h2>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card mt-5" style="height:auto">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Products</th>
+                        <center><th scope="col">Status</th></center>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in orders %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="#">{{ order.orderId }}</a></td>
+                        <td>
+                          {% for item in order.orders_item.all %} {{item}} <br> {% endfor %}
+                        </td>
+                        <center><td><span class="badge badge-info">Processing Your ORder</span></td></center>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 my-5 text-center">
+              <a href="{% url 'Shop:home' %}" class="btn btn-info">Bact to Home</a>
+            </div>
+          </div>
+    </div>
+
+  </div>
+  
+{% endblock body_block %}

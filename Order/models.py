@@ -31,7 +31,7 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     paymentId = models.CharField(max_length=264,blank=True,null=True)
-    orederId = models.CharField(max_length=264,blank=True,null=True)
+    orderId = models.CharField(max_length=264,blank=True,null=True)
     
     def __str__(self):
         return f'{self.user} \'s  order'
