@@ -36,7 +36,7 @@
           <br>
           <br>
           {% if saved_address.is_fully_filled %}
-          <center><a href="" class="btn btn-warning" style="width: 100%;">Make Payment</a></center>
+          <center><a href="{% url 'Payment:payment' %}" class="btn btn-warning" style="width: 100%;">Make Payment</a></center>
           {% else %}
           <div class="alert alert-info">
             <p>Please fill up all the information to get payment-button here for making your payment !</p>

@@ -6,14 +6,17 @@
 {% endblock title_block %}
 
 {% block body_block %}
-<div class="shadow-none p-3 m-2 bg-light rounded">
+<div class="shadow-none p-3  bg-light rounded container card">
+<div class="card-body">
     <h2>Your Profile:</h2>
     <hr>
     <form method="POST">
         {{form|crispy}}
         {% csrf_token %}
-        <button type="submit" class="btn btn-warning" >update info</button>
+        <button type="submit" class="btn btn-warning" style="float: right;">update info</button>
     </form>
+
+</div>
 </div>
 
 

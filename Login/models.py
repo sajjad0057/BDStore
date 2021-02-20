@@ -88,7 +88,7 @@ class Profile(models.Model):
             value = getattr(self,field)
             if value is None or value == "":
                 return False
-            return True
+        return True
 
         
     
